@@ -1,0 +1,12 @@
+# python cache files
+__pycache__/
+*.pyc
+
+# build artifacts
+build/
+dist/
+{{ cookiecutter.underscored }}.egg-info/
+
+# test coverage
+.coverage
+coverage.xml

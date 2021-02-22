@@ -1,0 +1,6 @@
+{
+  "package_name": "",
+  "description": "",
+  "underscored": "{{ cookiecutter.package_name.replace('-', '_') }}",
+  "github_username": ""
+}
