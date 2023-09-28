@@ -8,12 +8,12 @@ readme = "README.md"
 repository = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.package_name }}"
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = ">=3.8"
 
 [tool.poetry.dev-dependencies]
 isort = "^5.7"
 flake8 = "^3.8.4"
-black = { version = "==20.8b1", allow-prereleases = true }
+black = "==23.3.0"
 pytest = "^6.2.2"
 pytest-cov = "^2.11.1"
 
