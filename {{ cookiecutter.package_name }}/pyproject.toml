@@ -11,11 +11,11 @@ repository = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecut
 python = ">=3.8"
 
 [tool.poetry.dev-dependencies]
-isort = "^5.7"
-flake8 = "^3.8.4"
-black = "==23.3.0"
-pytest = "^6.2.2"
-pytest-cov = "^2.11.1"
+isort = "^5.12"
+flake8 = { version = "^6.1.0", python = "^3.8.1" }
+black = "==23.9.1"
+pytest = "^7.4.2"
+pytest-cov = "^4.1.0"
 
 [build-system]
 requires = ["poetry>=1.0.2"]
