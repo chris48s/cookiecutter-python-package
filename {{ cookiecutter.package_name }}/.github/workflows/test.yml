@@ -10,11 +10,10 @@ jobs:
         python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 'Build, Test, Lint: ${{ matrix.python-version }}'
         uses: chris48s/python-package-shared@main
         with:
           python-version: ${{ matrix.python-version }}
-          pre-install: poetry
-{% endraw %}
+          pre-install: {% endraw %}{{ cookiecutter.build_tool }}

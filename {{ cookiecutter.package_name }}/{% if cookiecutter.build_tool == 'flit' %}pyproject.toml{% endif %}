@@ -1,0 +1,40 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "{{ cookiecutter.package_name }}"
+authors = [{name = "{{ cookiecutter.github_username }}"}]
+description = "{{ cookiecutter.description }}"
+readme = "README.md"
+license = {file = "LICENSE"}
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dynamic = ["version"]
+requires-python = ">=3.8"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "flit==3.9.0",
+    "isort==5.12.0",
+    "flake8==6.1.0",
+    "black==23.9.1",
+    "pytest==7.4.2",
+    "pytest-cov==4.1.0",
+]
+
+[project.urls]
+Home = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.package_name }}"
+Source = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.package_name }}"
+
+[tool.flit.module]
+name = "{{ cookiecutter.underscored }}"

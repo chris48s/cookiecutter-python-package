@@ -4,7 +4,7 @@ set -euo pipefail
 
 # read version + ensure non-empty
 VERSION="$1"
-[ -z "$VERSION" ] &&  echo "Error: No version specified" && exit 1
+[ -z "$VERSION" ] && echo "Error: No version specified" && exit 1
 
 # ensure work tree is clean (aside from CHANGELOG.md)
 if [[ ! $(git status --porcelain | grep -vc "CHANGELOG.md") -eq 0 ]]; then
@@ -24,9 +24,16 @@ then
     echo "Error: CHANGELOG.md is not up to date"
     exit 1
 fi
-
+{% if cookiecutter.build_tool == 'flit' %}
+if ! type "flit" > /dev/null;
+then
+    echo "Flit is not installed"
+    exit 1
+fi
+{% endif %}
 # confirm
-read -r -p "Bump version from $(poetry version --short) to $VERSION. Are you sure? [y/n] " response
+{% if cookiecutter.build_tool == 'flit' %}read -r -p "Bump version from $(cut -d '"' -f2 < {{ cookiecutter.underscored }}/__version__.py) to $VERSION. Are you sure? [y/n] " response{% endif -%}
+{%- if cookiecutter.build_tool == 'poetry' %}read -r -p "Bump version from $(poetry version --short) to $VERSION. Are you sure? [y/n] " response{% endif %}
 response=${response,,}  # tolower
 if [[ ! "$response" =~ ^(yes|y)$ ]]; then
     exit 1
@@ -35,20 +42,17 @@ fi
 # checks done, now publish the release...
 
 # bump version
-poetry version "$VERSION"
+{% if cookiecutter.build_tool == 'flit' %}echo '__version__ = "'"$VERSION"'"' > {{ cookiecutter.underscored }}/__version__.py{% endif -%}
+{%- if cookiecutter.build_tool == 'poetry' %}poetry version "$VERSION"{% endif %}
 
 # commit
+{% if cookiecutter.build_tool == 'flit' %}git add {{ cookiecutter.underscored }}/__version__.py{% endif %}
 git add pyproject.toml
 git add CHANGELOG.md
 git commit -m "version $VERSION"
 
 # tag
 git tag "$VERSION"
-
-# build and push to PyPI
-poetry install
-poetry build
-poetry publish
 
 # push to GitHub
 git push origin "$(git branch --show-current)" --tags

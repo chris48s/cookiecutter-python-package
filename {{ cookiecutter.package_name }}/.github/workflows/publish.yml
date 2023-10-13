@@ -21,7 +21,7 @@ jobs:
         uses: chris48s/python-package-shared@main
         with:
           python-version: '${{ steps.python-versions.outputs.min }}'
-          pre-install: poetry
+          pre-install: {% endraw %}{{ cookiecutter.build_tool }}{% raw %}
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
